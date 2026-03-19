@@ -7,6 +7,18 @@ const uri = "mongodb+srv://<user>:<password>@ckmdb.5oxvqja.mongodb.net/?retryWri
 //    "express": "^4.18.2",
 //    "mongodb": "^5.1.0"
 
+// Alternatively, to not expose the access keys, you may do:
+// MUST RUN npm install dotenv  ON CONSOLE to begin
+// require('dotenv').config();  // To make the environment vars work, package.json must contain dependency-> "dotenv": "^16.0.0"
+// The uri string must be the connection string for the database (obtained on Atlas).
+// Do this=> const uri = "mongodb+srv://<user>:<password>@ckmdb.5oxvqja.mongodb.net/?retryWrites=true&w=majority";
+// but we have hidden the access keys in .env so we get them:
+// or, do these =>
+// const user = process.env.user;
+// const paswd = process.env.paswd;
+// mongodb+srv://" + user +":"+ password +"@ckmdb.5oxvqja.mongodb.net/?retryWrites=true&w=majority";
+
+
 // --- This is the standard stuff to get it to work on the browser
 const express = require('express');
 const app = express();
