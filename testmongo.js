@@ -11,7 +11,7 @@ const uri = "mongodb+srv://<user>:<password>@ckmdb.5oxvqja.mongodb.net/?retryWri
 // MUST RUN: npm install dotenv  ON CONSOLE to begin
 // require('dotenv').config();  // To make the environment vars work, package.json must contain dependency-> "dotenv": "^16.0.0"
 // Then get the parameters hidden in .env do:
-// Do this=> const uri = process.env.user;
+// Do this=> const uri = process.env.mongo_uri;
 // We have also hidden the access keys in .env so alternatively we may use them:
 // so in this case, do these =>
 // const user = process.env.user;
