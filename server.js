@@ -1,5 +1,14 @@
 require('dotenv').config();
 
+const missing = ['MONGODB_URI', 'SESSION_SECRET'].filter((k) => !process.env[k]);
+if (missing.length > 0) {
+  console.error(
+    `boot failed: missing required env var(s): ${missing.join(', ')}.\n` +
+      `On Render: Settings -> Environment -> Add Environment Variable for each one, then Save Changes.`
+  );
+  process.exit(1);
+}
+
 const app = require('./app');
 const DatabaseConnection = require('./config/db');
 
