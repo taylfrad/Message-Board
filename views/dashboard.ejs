@@ -41,8 +41,9 @@
               <form method="POST" action="/topics/<%= t._id %>/unsubscribe"
                     data-confirm="You'll stop getting notifications for &ldquo;<%= t.title %>&rdquo;."
                     data-confirm-title="Unsubscribe?"
-                    data-confirm-label="Unsubscribe">
-                <button type="submit" class="btn btn-ghost btn-xs">Unsubscribe</button>
+                    data-confirm-label="Unsubscribe"
+                    data-confirm-destructive="true">
+                <button type="submit" class="btn btn-danger-ghost btn-xs">Unsubscribe</button>
               </form>
             </div>
 

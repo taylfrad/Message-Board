@@ -24,8 +24,9 @@
           data-confirm="You'll stop getting notifications for &ldquo;<%= topic.title %>&rdquo;."
           data-confirm-title="Unsubscribe?"
           data-confirm-label="Unsubscribe"
+          data-confirm-destructive="true"
           <% } %>>
-      <button type="submit" class="btn <%= isSubscribed ? 'btn-secondary' : 'btn-primary' %> btn-sm">
+      <button type="submit" class="btn <%= isSubscribed ? 'btn-danger-ghost' : 'btn-primary' %> btn-sm">
         <%= isSubscribed ? 'Unsubscribe' : 'Subscribe' %>
       </button>
     </form>
