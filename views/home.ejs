@@ -1,13 +1,14 @@
-<section class="py-16 sm:py-24 text-center">
-  <p class="text-xs uppercase tracking-[0.18em] text-tertiary mb-5">A small message board</p>
-  <h1 class="font-display text-5xl sm:text-7xl leading-[1.02] tracking-tight text-balance">
+<section class="hero-glow py-14 sm:py-20 text-center">
+  <p class="text-xs uppercase tracking-[0.22em] text-tertiary mb-5 font-medium">A small message board</p>
+  <h1 class="font-display text-5xl sm:text-7xl text-balance">
     <% if (currentUser) { %>
-      Hello, <span class="italic"><%= currentUser.username %></span>.
+      Hello, <span class="italic font-semibold"><%= currentUser.username %></span>.
     <% } else { %>
-      Write, follow, <span class="italic">be notified</span>.
+      Write, follow,<br class="hidden sm:inline" />
+      <span class="italic font-semibold">be notified</span>.
     <% } %>
   </h1>
-  <p class="mt-5 text-lg text-secondary max-w-xl mx-auto leading-relaxed">
+  <p class="mt-6 text-lg text-secondary max-w-xl mx-auto leading-relaxed">
     <% if (currentUser) { %>
       Jump back into the threads you follow, or start something new.
     <% } else { %>
@@ -25,17 +26,17 @@
   </div>
 </section>
 
-<section class="grid sm:grid-cols-3 gap-3 sm:gap-5 mt-4">
+<section class="grid sm:grid-cols-3 gap-3 sm:gap-4 mt-4">
   <div class="card card-body">
-    <p class="font-display text-3xl">Threads.</p>
-    <p class="text-sm text-tertiary mt-1">Start a topic, everyone else can follow.</p>
+    <p class="display text-2xl font-semibold">Threads.</p>
+    <p class="text-sm text-tertiary mt-1 leading-snug">Start a topic, everyone else can follow.</p>
   </div>
   <div class="card card-body">
-    <p class="font-display text-3xl">Signals.</p>
-    <p class="text-sm text-tertiary mt-1">Only subscribers hear new replies. No noise.</p>
+    <p class="display text-2xl font-semibold">Signals.</p>
+    <p class="text-sm text-tertiary mt-1 leading-snug">Only subscribers hear new replies. No noise.</p>
   </div>
   <div class="card card-body">
-    <p class="font-display text-3xl">Stats.</p>
-    <p class="text-sm text-tertiary mt-1">See which threads get the most attention.</p>
+    <p class="display text-2xl font-semibold">Stats.</p>
+    <p class="text-sm text-tertiary mt-1 leading-snug">See which threads get the most attention.</p>
   </div>
 </section>
