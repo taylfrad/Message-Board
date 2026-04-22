@@ -535,6 +535,29 @@ main > *:nth-child(4) { animation-delay: 0.12s; }
 }
 .hero-glow h1 { animation: hero-rise 0.85s var(--ease-spring) 0.1s both; }
 
+/* ─── Messages: scroll-linked fade ───
+   Items are always in the DOM and always visible in mid-viewport; opacity
+   and translateY are tied to each item's position within the viewport.
+   Fade in from the bottom edge, fade out as they reach the sticky nav.
+   Graceful fallback: static visibility when scroll-driven animations
+   are unsupported. */
+@supports (animation-timeline: view()) {
+  .fade-scroll {
+    animation: fade-scroll linear both;
+    animation-timeline: view();
+    /* Scroll-driven content shouldn't be skipped by content-visibility
+       since the browser needs its position tracked throughout. */
+    content-visibility: visible;
+    contain: layout style;
+  }
+  @keyframes fade-scroll {
+    0%, 6%  { opacity: 0; transform: translateY(22px); }
+    22%     { opacity: 1; transform: translateY(0); }
+    78%     { opacity: 1; transform: translateY(0); }
+    100%    { opacity: 0; transform: translateY(-16px); }
+  }
+}
+
 /* ─── Scroll reveal — IntersectionObserver adds .in ───
    Sibling stagger via nth-child so lists cascade into view naturally. */
 .reveal {

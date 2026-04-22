@@ -54,7 +54,7 @@
   <% } else { %>
     <div class="flex flex-col gap-2">
       <% messages.forEach(function (m) { %>
-        <div class="card card-body-tight reveal">
+        <div class="card card-body-tight fade-scroll">
           <div class="flex items-baseline justify-between gap-2 mb-1">
             <span class="font-semibold text-sm"><%= m.author ? m.author.username : '(deleted)' %></span>
             <time class="ts text-xs text-quaternary"
