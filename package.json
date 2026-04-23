@@ -1,5 +1,5 @@
 {
-  "name": "cmps4150-messageboard",
+  "name": "message-board",
   "version": "1.0.0",
   "description": "Message board service with MVC, Observer, and Singleton patterns",
   "main": "server.js",

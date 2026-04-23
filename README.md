@@ -1,11 +1,11 @@
-# CMPS-4150-Message-Board
+# Message-Board
 
 A Twitter-style message board built for **CMPS 4150 — Enterprise Systems (Spring 2026), Project P1**.
 Users register, subscribe to topics (message threads), post messages in subscribed topics, and see the
 two most recent messages per subscribed topic on their dashboard.
 
 - **Live app:** https://mongotestpub-r41n.onrender.com/
-- **Repo:** https://github.com/taylfrad/CMPS-4150-Message-Board
+- **Repo:** https://github.com/taylfrad/Message-Board
 - **Team:** Christopher Ford, Taylor Fradella
 
 ![Dashboard — your subscribed topics with the 2 most recent messages per topic](docs/images/dashboard.png)
