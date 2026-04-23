@@ -1,7 +1,7 @@
 <div class="flex items-end justify-between mb-8 gap-4">
   <div>
     <p class="text-xs uppercase tracking-[0.16em] text-tertiary mb-1">Inbox</p>
-    <h1 class="font-display text-5xl tracking-tight leading-[1.05]">Notifications.</h1>
+    <h1 class="font-display text-3xl sm:text-5xl tracking-tight leading-[1.05]">Notifications.</h1>
   </div>
   <% if (notifications.some(function (n) { return !n.read; })) { %>
     <form method="POST" action="/notifications/read-all"

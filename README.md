@@ -1,11 +1,14 @@
-# MongoTestPub — Message Board Service
+# CMPS-4150-Message-Board
 
 A Twitter-style message board built for **CMPS 4150 — Enterprise Systems (Spring 2026), Project P1**.
 Users register, subscribe to topics (message threads), post messages in subscribed topics, and see the
 two most recent messages per subscribed topic on their dashboard.
 
 - **Live app:** https://mongotestpub-r41n.onrender.com/
+- **Repo:** https://github.com/taylfrad/CMPS-4150-Message-Board
 - **Team:** Christopher Ford, Taylor Fradella
+
+![Dashboard — your subscribed topics with the 2 most recent messages per topic](docs/images/dashboard.png)
 
 ## Features
 
@@ -21,7 +24,17 @@ two most recent messages per subscribed topic on their dashboard.
 | T7   |  5 | Singleton for database access | [config/db.js](config/db.js) |
 | T8   | 10 | `/stats` route reports per-topic access counts | [controllers/statsController.js](controllers/statsController.js) |
 
+## Screenshots
+
+| Browse topics | Read & post in a thread |
+| ------------- | ----------------------- |
+| ![Topics list](docs/images/topics.png) | ![Topic detail with messages](docs/images/topic.png) |
+
+![Stats page — per-topic access counts (T8)](docs/images/stats.png)
+
 ## Design patterns
+
+![Architecture — request flow with Singleton DB and Observer fan-out](docs/images/architecture.png)
 
 **MVC (T5)** — Mongoose schemas in `/models`, EJS templates in `/views`, request handlers in
 `/controllers`, URL wiring only in `/routes`.
@@ -39,9 +52,10 @@ private static `#instance` field. The constructor throws if called directly; cal
 
 ## Tech stack
 
-Node.js 18+, Express 5, MongoDB Atlas via Mongoose, EJS with `express-ejs-layouts`, Tailwind CSS +
-daisyUI, sessions via `express-session` + `connect-mongo`, password hashing with bcrypt.
-Deployed on Render with auto-deploy from the GitHub `main` branch.
+Node.js 18+, Express 5, MongoDB Atlas via Mongoose, EJS with `express-ejs-layouts`,
+Tailwind CSS (compiled at deploy time) plus a hand-written Apple-HIG design layer in
+[public/css/app.css](public/css/app.css), sessions via `express-session` + `connect-mongo`,
+password hashing with bcrypt. Deployed on Render with auto-deploy from the GitHub `main` branch.
 
 ## Project layout
 
@@ -79,56 +93,7 @@ Required environment variables:
 
 ## Data model
 
-```mermaid
-erDiagram
-    USER ||--o{ TOPIC           : "authors"
-    USER }o--o{ TOPIC           : "subscribes to"
-    USER ||--o{ MESSAGE         : "authors"
-    TOPIC ||--o{ MESSAGE        : "contains"
-    USER ||--o{ NOTIFICATION    : "receives"
-    TOPIC ||--o{ NOTIFICATION   : "is about"
-    MESSAGE ||--o{ NOTIFICATION : "triggers"
-
-    USER {
-        ObjectId _id PK
-        string   username       "unique, 3-32 chars"
-        string   email          "unique, lowercased"
-        string   passwordHash   "bcrypt, 10 rounds"
-        Date     createdAt
-        Date     updatedAt
-    }
-
-    TOPIC {
-        ObjectId _id PK
-        string   title          "3-120 chars"
-        string   body           "0-2000 chars"
-        ObjectId author FK      "User"
-        ObjectId[] subscribers  "User[]"
-        number   accessCount    "indexed, T8"
-        Date     createdAt
-        Date     updatedAt
-    }
-
-    MESSAGE {
-        ObjectId _id PK
-        ObjectId topic FK       "Topic, indexed"
-        ObjectId author FK      "User"
-        string   text           "1-2000 chars"
-        Date     createdAt
-        Date     updatedAt
-    }
-
-    NOTIFICATION {
-        ObjectId _id PK
-        ObjectId user FK        "User, indexed"
-        ObjectId topic FK       "Topic"
-        ObjectId message FK     "Message"
-        string   text
-        boolean  read           "indexed, default false"
-        Date     createdAt
-        Date     updatedAt
-    }
-```
+![Database schema — collections, fields, indexes, and relationships](docs/images/database_schema.png)
 
 - **User** — `username` (unique), `email` (unique, lowercased), `passwordHash` (bcrypt, 10 rounds).
   Virtual `password` setter validates length on save.

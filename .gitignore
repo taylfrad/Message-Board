@@ -1,9 +1,15 @@
 node_modules/
+
+# Secrets
 .env
 .env.local
 .env.*.local
+
+# Logs
 *.log
 npm-debug.log*
+
+# OS / editor
 .DS_Store
 .vscode/
 
@@ -13,13 +19,15 @@ npm-debug.log*
 CLAUDE.md
 CLAUDE.local.md
 
-.report_screenshots/
+# Tailwind build output (rebuilt on install via postinstall)
+public/css/tailwind.css
 
-.scripts/
+# Local scratchpad
+report_screenshots/
+
+# Generated report artifact
 Project_P1_Report.docx
 
-# Report-build artifacts (generated locally, not part of the app)
-report_screenshots/
-scripts/build_report.py
-scripts/take_screenshots.js
-scripts/take_code_shots.js
+# All scripts are local tooling except the committed seed.js
+scripts/*
+!scripts/seed.js

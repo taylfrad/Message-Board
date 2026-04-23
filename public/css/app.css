@@ -127,7 +127,10 @@ html, body {
   font-optical-sizing: auto;
   text-rendering: optimizeLegibility;
   transition: background-color 0.28s var(--ease), color 0.28s var(--ease);
+  overflow-x: clip;
 }
+
+h1, h2, h3, h4 { overflow-wrap: break-word; }
 
 body::before {
   content: '';

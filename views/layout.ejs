@@ -23,9 +23,10 @@
       })();
     </script>
 
+    <link rel="preload" as="style" href="/css/tailwind.css?v=<%= assetVersion %>" />
+    <link rel="stylesheet" href="/css/tailwind.css?v=<%= assetVersion %>" />
     <link rel="preload" as="style" href="/css/app.css?v=<%= assetVersion %>" />
     <link rel="stylesheet" href="/css/app.css?v=<%= assetVersion %>" />
-    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <%- include('partials/nav') %>
