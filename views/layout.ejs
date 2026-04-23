@@ -164,23 +164,34 @@
           var now = new Date();
           var diffMs = now - d;
           var diffMin = Math.floor(diffMs / 60000);
+          var diffHr  = Math.floor(diffMs / 3600000);
 
           var sameDay = now.toDateString() === d.toDateString();
           var ydObj = new Date(now); ydObj.setDate(ydObj.getDate() - 1);
           var isYesterday = ydObj.toDateString() === d.toDateString();
-          var withinWeek = diffMs >= 0 && diffMs < 7 * 86400000;
 
-          if (diffMin < 1 && diffMs >= 0) return 'just now';
-          if (diffMin < 60 && diffMs >= 0) return diffMin + ' min ago';
-          if (sameDay) return timePart(d);
-          if (isYesterday) return 'Yesterday ' + timePart(d);
-          if (withinWeek) {
-            return d.toLocaleDateString(undefined, { weekday: 'short' }) + ' ' + timePart(d);
+          // Always show the full DAY · DATE · TIME · YEAR — e.g.
+          // "Wed, Apr 23, 2026, 2:15 PM"
+          var full = d.toLocaleString(undefined, {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit'
+          });
+
+          // Prepend a short relative label for anything in the last ~24h
+          // or the previous day.
+          var rel = '';
+          if (diffMs >= 0) {
+            if      (diffMin < 1)      rel = 'just now';
+            else if (diffMin < 60)     rel = diffMin + ' min ago';
+            else if (sameDay)          rel = diffHr  + ' h ago';
+            else if (isYesterday)      rel = 'yesterday';
           }
-          if (d.getFullYear() === now.getFullYear()) {
-            return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-          }
-          return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+
+          return rel ? (rel + ' · ' + full) : full;
         }
 
         function full(d) {

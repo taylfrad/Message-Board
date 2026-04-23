@@ -675,6 +675,20 @@ body::after {
     ) bottom / 100% 48px no-repeat;
 }
 
+/* Mobile: drop the bottom gradient only — the dynamic URL bar made it
+   unreliable and sometimes jumpy. Keep the top fade under the nav. */
+@media (max-width: 639px) {
+  body::after {
+    background:
+      linear-gradient(
+        to bottom,
+        var(--bg) 0,
+        var(--bg) 52px,
+        transparent 100px
+      ) top / 100% 100px no-repeat;
+  }
+}
+
 /* ─── Topic row arrow ─── */
 .arrow {
   display: inline-block;
