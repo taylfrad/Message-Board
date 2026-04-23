@@ -3,7 +3,7 @@
     <p class="text-xs uppercase tracking-[0.16em] text-tertiary mb-1">Inbox</p>
     <h1 class="font-display text-3xl sm:text-5xl tracking-tight leading-[1.05]">Notifications.</h1>
   </div>
-  <% if (notifications.some(function (n) { return !n.read; })) { %>
+  <% if (hasUnread) { %>
     <form method="POST" action="/notifications/read-all"
           data-confirm="This will clear every unread notification."
           data-confirm-title="Mark all as read?"
@@ -13,29 +13,35 @@
   <% } %>
 </div>
 
-<% if (notifications.length === 0) { %>
+<% if (!groups || groups.length === 0) { %>
   <div class="card card-body text-center text-tertiary">
     Nothing yet. When someone posts in a subscribed topic, it'll land here.
   </div>
 <% } else { %>
-  <div class="flex flex-col gap-2">
-    <% notifications.forEach(function (n) { %>
-      <form method="POST" action="/notifications/<%= n._id %>/read">
-        <button type="submit" class="card card-body-tight reveal w-full text-left flex items-start justify-between gap-3 <%= n.read ? 'opacity-60' : '' %>">
-          <div class="min-w-0">
-            <p class="font-semibold text-sm"><%= n.text %></p>
-            <p class="text-xs text-tertiary mt-0.5">
-              <span class="text-secondary"><%= n.topic ? n.topic.title : '(topic deleted)' %></span>
-              <span class="text-quaternary">·</span>
-              <time class="ts"
-                    datetime="<%= new Date(n.createdAt).toISOString() %>"><%= new Date(n.createdAt).toISOString() %></time>
-            </p>
-          </div>
-          <% if (!n.read) { %>
-            <span class="badge">new</span>
-          <% } %>
-        </button>
-      </form>
-    <% }) %>
-  </div>
+  <% groups.forEach(function (group) { %>
+    <section class="mb-8">
+      <h2 class="text-xs uppercase tracking-[0.12em] text-tertiary font-semibold mb-3"><%= group.label %></h2>
+      <div class="flex flex-col gap-2">
+        <% group.items.forEach(function (n) { %>
+          <form method="POST" action="/notifications/<%= n._id %>/read">
+            <button type="submit" class="card card-body-tight reveal w-full text-left flex items-center justify-between gap-3 <%= n.read ? 'opacity-60' : '' %>">
+              <div class="min-w-0">
+                <p class="font-semibold text-sm"><%= n.text %></p>
+                <p class="text-xs text-tertiary mt-0.5 truncate">
+                  <span class="text-secondary"><%= n.topic ? n.topic.title : '(topic deleted)' %></span>
+                </p>
+              </div>
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <% if (!n.read) { %>
+                  <span class="badge">new</span>
+                <% } %>
+                <time class="ts text-xs text-quaternary"
+                      datetime="<%= new Date(n.createdAt).toISOString() %>"><%= new Date(n.createdAt).toISOString() %></time>
+              </div>
+            </button>
+          </form>
+        <% }) %>
+      </div>
+    </section>
+  <% }) %>
 <% } %>

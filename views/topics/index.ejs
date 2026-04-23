@@ -26,17 +26,15 @@
           <p class="text-xs text-tertiary mt-1">
             by <%= t.author ? t.author.username : '(deleted)' %>
             <span class="text-quaternary">·</span>
-            <%= (t.subscribers || []).length %>
-            subscriber<%= (t.subscribers || []).length === 1 ? '' : 's' %>
-            <span class="text-quaternary">·</span>
             <span class="mono"><%= t.accessCount || 0 %></span>
             view<%= (t.accessCount || 0) === 1 ? '' : 's' %>
-            <span class="text-quaternary">·</span>
-            <time class="ts"
-                  datetime="<%= new Date(t.createdAt).toISOString() %>"><%= new Date(t.createdAt).toISOString() %></time>
           </p>
         </div>
-        <span class="arrow text-sm">→</span>
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <time class="ts text-xs text-tertiary"
+                datetime="<%= new Date(t.createdAt).toISOString() %>"><%= new Date(t.createdAt).toISOString() %></time>
+          <span class="arrow text-sm">→</span>
+        </div>
       </a>
     <% }) %>
   </div>

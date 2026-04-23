@@ -10,14 +10,15 @@
     <p class="text-sm text-tertiary mt-2">
       by <span class="text-secondary"><%= topic.author ? topic.author.username : '(deleted)' %></span>
       <span class="text-quaternary">·</span>
-      <%= topic.subscribers.length %>
-      subscriber<%= topic.subscribers.length === 1 ? '' : 's' %>
-      <span class="text-quaternary">·</span>
-      <span class="mono"><%= topic.accessCount || 0 %></span>
-      view<%= (topic.accessCount || 0) === 1 ? '' : 's' %>
-      <span class="text-quaternary">·</span>
       <time class="ts"
             datetime="<%= new Date(topic.createdAt).toISOString() %>"><%= new Date(topic.createdAt).toISOString() %></time>
+    </p>
+    <p class="text-xs text-quaternary mt-1">
+      <%= topic.subscribers.length %>
+      subscriber<%= topic.subscribers.length === 1 ? '' : 's' %>
+      <span>·</span>
+      <span class="mono"><%= topic.accessCount || 0 %></span>
+      view<%= (topic.accessCount || 0) === 1 ? '' : 's' %>
     </p>
   </div>
   <% if (currentUser) { %>

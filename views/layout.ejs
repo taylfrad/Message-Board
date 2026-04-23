@@ -165,37 +165,29 @@
           var diffMs = now - d;
           var diffMin = Math.floor(diffMs / 60000);
           var diffHr  = Math.floor(diffMs / 3600000);
+          var diffDay = Math.floor(diffMs / 86400000);
 
-          var sameDay = now.toDateString() === d.toDateString();
-          var ydObj = new Date(now); ydObj.setDate(ydObj.getDate() - 1);
-          var isYesterday = ydObj.toDateString() === d.toDateString();
-
-          // Always show the full DAY · DATE · TIME · YEAR — e.g.
-          // "Wed, Apr 23, 2026, 2:15 PM"
-          var full = d.toLocaleString(undefined, {
-            weekday: 'short',
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric',
-            hour: 'numeric',
-            minute: '2-digit'
-          });
-
-          // Prepend a short relative label for anything in the last ~24h
-          // or the previous day.
-          var rel = '';
-          if (diffMs >= 0) {
-            if      (diffMin < 1)      rel = 'just now';
-            else if (diffMin < 60)     rel = diffMin + ' min ago';
-            else if (sameDay)          rel = diffHr  + ' h ago';
-            else if (isYesterday)      rel = 'yesterday';
+          if (diffMs < 0) {
+            // future date — fall back to a compact date
+            return d.toLocaleDateString(undefined, {
+              month: 'short', day: 'numeric', year: 'numeric'
+            });
           }
-
-          return rel ? (rel + ' · ' + full) : full;
+          if (diffMin < 1)  return 'just now';
+          if (diffMin < 60) return diffMin + 'm ago';
+          if (diffHr  < 24) return diffHr  + 'h ago';
+          if (diffDay < 7)  return diffDay + 'd ago';
+          if (d.getFullYear() === now.getFullYear()) {
+            return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+          }
+          return d.toLocaleDateString(undefined, {
+            month: 'short', day: 'numeric', year: 'numeric'
+          });
         }
 
         function full(d) {
           return d.toLocaleString(undefined, {
+            weekday: 'short',
             year: 'numeric', month: 'short', day: 'numeric',
             hour: 'numeric', minute: '2-digit',
             timeZoneName: 'short'
